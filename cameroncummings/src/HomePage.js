@@ -8,14 +8,46 @@ function HomePage() {
     
 
     useEffect(() => {
-        const updateCursorPos = (e) => {
-            setCursorPos({ x: e.clientX, y: e.clientY });
+        let hoverTimeout;
+    
+        const moveCursor = (e) => {
+            clearTimeout(hoverTimeout); // Clear the timeout on every move to reset the timer
+    
+            let clientX, clientY;
+            if (e.type === 'touchmove' || e.type === 'touchstart') {
+                clientX = e.touches[0]?.clientX;
+                clientY = e.touches[0]?.clientY;
+            } else { // Handles mousemove
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            setCursorPos({ x: clientX, y: clientY });
+    
+            // Set a timeout to hide the cursor-circle after 2 seconds of inactivity
+            hoverTimeout = setTimeout(() => {
+                setCursorPos({ x: -1000, y: -1000 }); // Move the cursor out of the viewport
+            }, 500); // Adjust the time as needed
         };
-
-        window.addEventListener('mousemove', updateCursorPos);
-
+    
+        const hideCursorImmediately = () => {
+            clearTimeout(hoverTimeout);
+            setCursorPos({ x: -1000, y: -1000 });
+        };
+    
+        // Listen for both mouse and touch events
+        window.addEventListener('mousemove', moveCursor);
+        window.addEventListener('touchstart', moveCursor); // Consider initial touch
+        window.addEventListener('touchmove', moveCursor);
+        window.addEventListener('touchend', hideCursorImmediately);
+        window.addEventListener('touchcancel', hideCursorImmediately);
+    
         return () => {
-            window.removeEventListener('mousemove', updateCursorPos);
+            clearTimeout(hoverTimeout); // Ensure to clear the timeout when the component unmounts
+            window.removeEventListener('mousemove', moveCursor);
+            window.removeEventListener('touchstart', moveCursor);
+            window.removeEventListener('touchmove', moveCursor);
+            window.removeEventListener('touchend', hideCursorImmediately);
+            window.removeEventListener('touchcancel', hideCursorImmediately);
         };
     }, []);
 
@@ -25,14 +57,14 @@ function HomePage() {
     return (
         <div className={`${darkMode ? 'dark-mode' : 'light-mode'} ${aboutActive ? 'about-active' : ''}`}>
             <div className="title" onClick={toggleDarkMode}>
-                <h1>CAMERON CUMMINGS</h1>
+                <h1 className={`${darkMode ? 'dark-mode-ti' : 'reg-ti'}`} >CAMERON CUMMINGS</h1>
             </div>
             <div className="about" onClick={toggleAbout}>
-               <h2>ABOUT</h2>
+               <h1>ABOUT</h1>
             </div>
             <div className="contact">
                 <a href="mailto:info@cameroncummings.ca" style={{ color: 'inherit', textDecoration: 'none' }}>
-                <h2>CONTACT</h2>
+                <h1>CONTACT</h1>
                 </a>
             </div>
             {aboutActive && (

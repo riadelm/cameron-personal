@@ -17,6 +17,7 @@ html, body, #root {
 
 .title, .about, .contact {
     margin: 1.5rem;
+    bottom: 50%;
     position: absolute;
     transition: bottom 0.5s ease, top 0.5s ease;
     z-index: 2;
@@ -24,7 +25,6 @@ html, body, #root {
 
 .title {
     animation: fadeIn 2s ease forwards, moveToTopLeft 2s 1s ease forwards;
-    bottom: 50%;
     left: 0;
 }
 
@@ -36,12 +36,10 @@ html, body, #root {
 .about, .contact {
     animation: fadeIn 2s ease forwards, moveToTopLeft 1.5s 1s ease forwards; /* Delay the appearance */
     animation-delay: 1.5s; /* Start after title moves */
-    bottom: 50%;
-    font-size: 0.4rem;
     transition: all 0.2s ease;
 }
 
-.title h1 {
+.title h1, .about h1, .contact h1 {
     font-size: 0.8rem;
 }
 
@@ -66,6 +64,16 @@ html, body, #root {
 
 }
 
+.dark-mode-ti:hover {
+    color: black !important;
+    z-index: 4;
+}
+
+.reg-ti:hover {
+    color: white !important;
+    z-index: 4;
+}
+
 .light-mode {
     background-color: rgb(255, 255, 255); /* Light background */
     color: rgb(13, 13, 14); /* Dark text */
@@ -81,7 +89,7 @@ html, body, #root {
     width: 0;
     height: 2px; /* Thickness of the underline */
     background-color: rgb(236, 236, 236); /* Color of the underline */
-    transition: width 0.5s ease-in-out; /* Animation duration */
+    transition: width 0.3s ease-in-out; /* Animation duration */
     z-index: 1001;
 }
 
@@ -99,6 +107,7 @@ html, body, #root {
     bottom: 0%; /* Adjust based on content */
     margin-left: 15vw;
     margin-right: 15vw;
+    margin-top: 10vh;
     margin-bottom: 10vh;
     justify-content: center;
     width: 70vw;
@@ -190,7 +199,6 @@ html, body, #root {
 }
 
 .title:hover {
-    color: rgb(255, 255, 255);
     z-index: 2;
 }
 
@@ -227,4 +235,55 @@ html, body, #root {
     z-index: 1000; /* Ensure it's above other elements */
     transition: background-color 0.2s ease, color 0.2s ease, width 0.2s ease, height 0.2s ease; /* Smooth transition for color changes */
     filter: blur(10px);
+}
+
+@media (max-width: 768px) {
+    .about{
+        left: 50%;
+    }
+    .about-info {
+        font-size: smaller; /* Adjust text size for readability */
+    }
+    .title:hover ~ .dark-cursor-circle {
+        width: 50rem; /* Size of the circle */
+        height: 50rem; /* Size of the circle */
+        background-color: rgb(255, 255, 255);
+        z-index: 0;
+        filter: blur(0px);
+    }
+    .title:hover ~ .cursor-circle {
+        width: 50rem; /* Size of the circle */
+        height: 50rem; /* Size of the circle */
+        background-color: rgb(0, 0, 0);
+        z-index: 0;
+        filter: blur(0px);
+    }
+}
+
+@media (max-height: 768px) {
+    .title, .about, .contact {
+        font-size: smaller;
+    }
+    .about{
+        left: 50%;
+    }
+    .about-info {
+        font-size: smaller; /* Adjust text size for readability */
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .title:hover ~ .dark-cursor-circle {
+        width: 50rem; /* Size of the circle */
+        height: 50rem; /* Size of the circle */
+        background-color: rgb(255, 255, 255);
+        z-index: 0;
+        filter: blur(0px);
+    }
+    .title:hover ~ .cursor-circle {
+        width: 50rem; /* Size of the circle */
+        height: 50rem; /* Size of the circle */
+        background-color: rgb(0, 0, 0);
+        z-index: 0;
+        filter: blur(0px);
+    }
 }

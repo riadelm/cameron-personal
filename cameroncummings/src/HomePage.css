@@ -5,8 +5,6 @@ html, body, #root {
     display: flex;
     justify-content:right;
     font-family: "Prata", serif;
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><rect width='4' height='4' fill='black' /></svg>"), auto;
-
 }
 
 @keyframes fadeIn {
@@ -21,6 +19,7 @@ html, body, #root {
     margin: 1.5rem;
     position: absolute;
     transition: bottom 0.5s ease, top 0.5s ease;
+    z-index: 2;
 }
 
 .title {
@@ -39,7 +38,7 @@ html, body, #root {
     animation-delay: 1.5s; /* Start after title moves */
     bottom: 50%;
     font-size: 0.4rem;
-    transition: all 0.5s ease;
+    transition: all 0.2s ease;
 }
 
 .title h1 {
@@ -61,13 +60,17 @@ html, body, #root {
 }
 
 .dark-mode {
-    background-color: rgb(13, 13, 14); /* Dark background */
+    background-color: rgb(0, 0, 0); /* Dark background */
     color: rgb(255, 255, 255); /* Light text */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><rect width='4' height='4' fill='white' /></svg>"), auto;
+
 }
 
 .light-mode {
     background-color: rgb(255, 255, 255); /* Light background */
     color: rgb(13, 13, 14); /* Dark text */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><rect width='4' height='4' fill='black' /></svg>"), auto;
+
 }
 
 .about::after, .contact::after {
@@ -77,7 +80,7 @@ html, body, #root {
     left: 0;
     width: 0;
     height: 2px; /* Thickness of the underline */
-    background-color: rgb(212, 212, 212); /* Color of the underline */
+    background-color: rgb(236, 236, 236); /* Color of the underline */
     transition: width 0.5s ease-in-out; /* Animation duration */
     z-index: 1001;
 }
@@ -88,19 +91,24 @@ html, body, #root {
 
 .about:hover, .contact:hover {
     z-index: 1001;
-    color: rgb(212, 212, 212);
+    color: rgb(236, 236, 236);
 }
 
 .about-info {
     position: absolute;
-    top: 50%; /* Adjust based on content */
-    margin: 10vw;
+    bottom: 0%; /* Adjust based on content */
+    margin-left: 15vw;
+    margin-right: 15vw;
+    margin-bottom: 10vh;
     justify-content: center;
-    transform: translate(-0%, -0%);
-    width: 80vw;
+    width: 70vw;
     text-align: justify;
     display: none;
-    animation: blurFadeIn 1s ease-in-out ;
+    animation: blurFadeIn 0.3s ease-in-out;
+}
+
+.about-info:hover::after {
+    animation: none ;
 }
 
 @keyframes blurFadeIn {
@@ -114,33 +122,76 @@ html, body, #root {
     }
   }
 
-/* @keyframes shakeAndBlur {
+@keyframes shakeAndBlur {
     0%, 100% {
         transform: translate(0);
         filter: blur(0);
     }
     20% {
-        /* transform: translate(-1%, 1%);
-        filter: drop-shadow(3px 2px 5px rgba(47, 47, 47, 0.450)) ;
+        transform: translate(-0.1%, 0.1%);
     }
     40% {
-        /* transform: translate(-1%, -1%); 
-        filter: drop-shadow(3px 2px 5px rgba(47, 47, 47, 0.450)) ;
+        transform: translate(-0.1%, -0.1%); 
     }
     60% {
-        /* transform: translate(1%, -1%); 
-        filter: drop-shadow(3px 2px 5px rgba(7, 7, 7, 0.758)) ;
+        transform: translate(0.1%, -0.1%); 
     }
     80% {
-        /* transform: translate(1%, 1%); 
-        filter: drop-shadow(3px 2px 5px rgba(47, 47, 47, 0.450)) ;
+        transform: translate(0.1%, 0.1%); 
     }
-} */
+}
 
-.about-info:hover ~ .cursor-circle{
+.about-info:hover ~ .cursor-circle {
     width: 1rem; /* Size of the circle */
     height: 1rem; /* Size of the circle */
     background-color: rgba(0, 0, 0, 0.350); /* Soft blue color */
+}
+
+.about-info:hover ~ .dark-cursor-circle {
+    width: 1rem; /* Size of the circle */
+    height: 1rem; /* Size of the circle */
+    background-color: rgba(255, 255, 255, 0.35); /* Soft blue color */
+}
+
+.about:hover ~ .cursor-circle {
+    width: 7rem; /* Size of the circle */
+    height: 7rem; /* Size of the circle */
+}
+
+.contact:hover ~ .cursor-circle {
+    width: 7rem; /* Size of the circle */
+    height: 7rem; /* Size of the circle */
+}
+
+.about:hover ~ .dark-cursor-circle {
+    width: 7rem; /* Size of the circle */
+    height: 7rem; /* Size of the circle */
+}
+
+.contact:hover ~ .dark-cursor-circle {
+    width: 7rem; /* Size of the circle */
+    height: 7rem; /* Size of the circle */
+}
+
+.title:hover ~ .cursor-circle {
+    width: 100rem; /* Size of the circle */
+    height: 100rem; /* Size of the circle */
+    background-color: black;
+    z-index: 0;
+    filter: blur(0px);
+}
+
+.title:hover ~ .dark-cursor-circle {
+    width: 100rem; /* Size of the circle */
+    height: 100rem; /* Size of the circle */
+    background-color: rgb(255, 255, 255);
+    z-index: 0;
+    filter: blur(0px);
+}
+
+.title:hover {
+    color: rgb(255, 255, 255);
+    z-index: 2;
 }
 
 .about-active .about-info {
@@ -157,6 +208,19 @@ html, body, #root {
     width: 4rem; /* Size of the circle */
     height: 4rem; /* Size of the circle */
     background-color: rgba(0, 0, 0, 0.625); /* Soft blue color */
+    border-radius: 50%; /* Make it a circle */
+    pointer-events: none; /* Prevent the circle from capturing mouse events */
+    transform: translate(-50%, -50%); /* Center the circle on the cursor */
+    z-index: 1000; /* Ensure it's above other elements */
+    transition: background-color 0.2s ease, color 0.2s ease, width 0.2s ease, height 0.2s ease; /* Smooth transition for color changes */
+    filter: blur(15px);
+}
+
+.dark-cursor-circle {
+    position: fixed; /* Fixed position to follow the cursor accurately */
+    width: 4rem; /* Size of the circle */
+    height: 4rem; /* Size of the circle */
+    background-color: rgba(255, 255, 255, 0.625); /* Soft blue color */
     border-radius: 50%; /* Make it a circle */
     pointer-events: none; /* Prevent the circle from capturing mouse events */
     transform: translate(-50%, -50%); /* Center the circle on the cursor */

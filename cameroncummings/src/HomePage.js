@@ -5,6 +5,7 @@ function HomePage() {
     const [darkMode, setDarkMode] = useState(false);
     const [aboutActive, setAboutActive] = useState(false);
     const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
+    
 
     useEffect(() => {
         const updateCursorPos = (e) => {
@@ -30,7 +31,9 @@ function HomePage() {
                <h2>ABOUT</h2>
             </div>
             <div className="contact">
-               <h2>CONTACT</h2>
+                <a href="mailto:info@cameroncummings.ca" style={{ color: 'inherit', textDecoration: 'none' }}>
+                <h2>CONTACT</h2>
+                </a>
             </div>
             {aboutActive && (
                 <div className="about-info">
@@ -39,7 +42,7 @@ function HomePage() {
                 </div>
             )}
              {/* Soft blue circle that follows the cursor */}
-             <div className="cursor-circle" style={{ left: cursorPos.x, top: cursorPos.y }}></div>
+             <div className={`${darkMode ? 'dark-cursor-circle' : 'cursor-circle'}`} style={{ left: cursorPos.x, top: cursorPos.y }}></div>
         </div>
     );
 }

@@ -1,0 +1,166 @@
+html, body, #root {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    justify-content:right;
+    font-family: "Prata", serif;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><rect width='4' height='4' fill='black' /></svg>"), auto;
+
+}
+
+@keyframes fadeIn {
+    from { filter:blur(1px);opacity: 0; }
+    to { filter:blur(0px);opacity: 1; }
+}
+.about, .contact {
+    opacity: 0;
+}
+
+.title, .about, .contact {
+    margin: 1.5rem;
+    position: absolute;
+    transition: bottom 0.5s ease, top 0.5s ease;
+}
+
+.title {
+    animation: fadeIn 2s ease forwards, moveToTopLeft 2s 1s ease forwards;
+    bottom: 50%;
+    left: 0;
+}
+
+@keyframes moveToTopLeft {
+    from { bottom: 50%; }
+    to { bottom: 92% }
+}
+
+.about, .contact {
+    animation: fadeIn 2s ease forwards, moveToTopLeft 1.5s 1s ease forwards; /* Delay the appearance */
+    animation-delay: 1.5s; /* Start after title moves */
+    bottom: 50%;
+    font-size: 0.4rem;
+    transition: all 0.5s ease;
+}
+
+.title h1 {
+    font-size: 0.8rem;
+}
+
+.about {
+    left: 65vw;
+}
+
+.contact {
+    right: 0%;
+}
+
+.dark-mode, .light-mode {
+    height: 100vh;
+    width: 100vw;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dark-mode {
+    background-color: rgb(13, 13, 14); /* Dark background */
+    color: rgb(255, 255, 255); /* Light text */
+}
+
+.light-mode {
+    background-color: rgb(255, 255, 255); /* Light background */
+    color: rgb(13, 13, 14); /* Dark text */
+}
+
+.about::after, .contact::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background-color: rgb(212, 212, 212); /* Color of the underline */
+    transition: width 0.5s ease-in-out; /* Animation duration */
+    z-index: 1001;
+}
+
+.about:hover::after, .contact:hover::after {
+    width: 100%; 
+}
+
+.about:hover, .contact:hover {
+    z-index: 1001;
+    color: rgb(212, 212, 212);
+}
+
+.about-info {
+    position: absolute;
+    top: 50%; /* Adjust based on content */
+    margin: 10vw;
+    justify-content: center;
+    transform: translate(-0%, -0%);
+    width: 80vw;
+    text-align: justify;
+    display: none;
+    animation: blurFadeIn 1s ease-in-out ;
+}
+
+@keyframes blurFadeIn {
+    0% {
+        filter: blur(20px);
+        opacity: 0;
+    }
+    100% {
+        filter: blur(0);
+        opacity: 1;
+    }
+  }
+
+/* @keyframes shakeAndBlur {
+    0%, 100% {
+        transform: translate(0);
+        filter: blur(0);
+    }
+    20% {
+        /* transform: translate(-1%, 1%);
+        filter: drop-shadow(3px 2px 5px rgba(47, 47, 47, 0.450)) ;
+    }
+    40% {
+        /* transform: translate(-1%, -1%); 
+        filter: drop-shadow(3px 2px 5px rgba(47, 47, 47, 0.450)) ;
+    }
+    60% {
+        /* transform: translate(1%, -1%); 
+        filter: drop-shadow(3px 2px 5px rgba(7, 7, 7, 0.758)) ;
+    }
+    80% {
+        /* transform: translate(1%, 1%); 
+        filter: drop-shadow(3px 2px 5px rgba(47, 47, 47, 0.450)) ;
+    }
+} */
+
+.about-info:hover ~ .cursor-circle{
+    width: 1rem; /* Size of the circle */
+    height: 1rem; /* Size of the circle */
+    background-color: rgba(0, 0, 0, 0.350); /* Soft blue color */
+}
+
+.about-active .about-info {
+    display: block;
+    transition: all 0.5s ease-in;
+}
+
+.about-active .title, .about-active .about, .about-active .contact {
+    transition: bottom 0.5s ease-in;
+}
+
+.cursor-circle {
+    position: fixed; /* Fixed position to follow the cursor accurately */
+    width: 4rem; /* Size of the circle */
+    height: 4rem; /* Size of the circle */
+    background-color: rgba(0, 0, 0, 0.625); /* Soft blue color */
+    border-radius: 50%; /* Make it a circle */
+    pointer-events: none; /* Prevent the circle from capturing mouse events */
+    transform: translate(-50%, -50%); /* Center the circle on the cursor */
+    z-index: 1000; /* Ensure it's above other elements */
+    transition: background-color 0.2s ease, color 0.2s ease, width 0.2s ease, height 0.2s ease; /* Smooth transition for color changes */
+    filter: blur(10px);
+}
